@@ -1,0 +1,30 @@
+{
+  "name": "apostrophe-multisite-demo",
+  "version": "2.0.0",
+  "description": "Demonstrates the apostrophe-multisite module",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/apostrophecms/apostrophe-multisite.git"
+  },
+  "keywords": [
+    "multisite",
+    "apostrophecms",
+    "apostrophe",
+    "cms"
+  ],
+  "author": "P'unk Avenue LLC",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/apostrophecms/apostrophe-multisite/issues"
+  },
+  "homepage": "https://github.com/apostrophecms/apostrophe-multisite#readme",
+  "dependencies": {
+    "apostrophe-multisite": "^2.0.0",
+    "apostrophe": "^2.48.0",
+    "mongo": "^0.1.0"
+  }
+}

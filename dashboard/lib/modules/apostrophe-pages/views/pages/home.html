@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+
+{% block main %}
+  <div class="main-content">
+    <h3>Multisite Dashboard
+      {% if not data.user %}
+        <a class="login-link" href="/login">Login</a>
+      {% endif %}
+    </h3>
+    <p>Log in and you'll find the sites in the admin bar.</p>
+  </div>
+{% endblock %}
