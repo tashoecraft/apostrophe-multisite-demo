@@ -1,7 +1,11 @@
 const multi = require('apostrophe-multisite')({
 
-  // For speed, make sure a site is live on this many processes,
-  // on separate servers when possible. Processes are SHARED
+  // An API key is required for interserver communication.
+  // Make it unique and secure, not this
+  apiKey: 'CHANGE-ME',
+
+  // For speed and availability, make sure a site is live on this many
+  // processes, on separate servers when possible. Processes are SHARED
   // by MANY sites, but setting this high still uses more RAM
   concurrencyPerSite: 2,
 
@@ -14,7 +18,7 @@ const multi = require('apostrophe-multisite')({
   // match your setup in mechanic/nginx or other load balancer. Can
   // also be space-separated in SERVERS env var
 
-  servers: [ 'localhost:3000', 'localhost:3001', 'localhost:3002' ],
+  servers: [ 'localhost:3000', 'localhost:3001' ],
 
   // ... And which server we are. Can also be set
   // via SERVER env var  
@@ -30,6 +34,9 @@ const multi = require('apostrophe-multisite')({
   // Hostname of the dashboard site. Distinct from the hosted sites.
   dashboardHostname: 'dashboard',
 
+  // Session secret. Please use a unique string.
+  sessionSecret: 'thisismadeup',
+
   // Apostrophe configuration for your hosted sites.
   // Just one config for all of them; per-site config could be
   // user editable settings in apostrophe-global.
@@ -38,6 +45,14 @@ const multi = require('apostrophe-multisite')({
 
   sites: {
     modules: {
+      'apostrophe-users': {
+        groups: [
+          {
+            title: 'admin',
+            permissions: [ 'admin' ]
+          }
+        ]
+      },
       'apostrophe-pages': {
         choices: [
           {
@@ -61,6 +76,14 @@ const multi = require('apostrophe-multisite')({
 
   dashboard: {
     modules: {
+      'apostrophe-users': {
+        groups: [
+          {
+            title: 'admin',
+            permissions: [ 'admin' ]
+          }
+        ]
+      },
       // Further configure the pieces module that represents sites. Perhaps
       // you wish to add some custom fields in the usual way
       'sites': {
@@ -68,9 +91,13 @@ const multi = require('apostrophe-multisite')({
       }
     }
   }
-  // top level await is not a thing, so handle the promise
-}).then(function() {
-  console.log('Running...');
+}).then(function(result) {
+  if (result === 'task') {
+    console.log('Running task...');
+  } else {
+    // top level await is not a thing, so handle the promise
+    console.log('Running...');
+  }
 }).catch(function(err) {
   console.error(err);
   process.exit(1);
