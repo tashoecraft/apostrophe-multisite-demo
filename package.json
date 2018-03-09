@@ -24,7 +24,7 @@
   "homepage": "https://github.com/apostrophecms/apostrophe-multisite#readme",
   "dependencies": {
     "apostrophe-multisite": "apostrophecms/apostrophe-multisite",
-    "apostrophe": "apostrophecms/apostrophe#inject-argv",
-    "mongo": "^0.1.0"
+    "apostrophe": "^2.49.0",
+    "mongodb": "^2.0.0"
   }
 }
