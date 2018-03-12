@@ -7,7 +7,7 @@ const multi = require('apostrophe-multisite')({
   // For speed and availability, make sure a site is live on this many
   // processes, on separate servers when possible. Processes are SHARED
   // by MANY sites, but setting this high still uses more RAM
-  concurrencyPerSite: 2,
+  concurrencyPerSite: 1,
 
   // If we receive no new requests for a site in an hour,
   // let that apos object go, freeing up RAM in exchange for
@@ -18,7 +18,7 @@ const multi = require('apostrophe-multisite')({
   // match your setup in mechanic/nginx or other load balancer. Can
   // also be space-separated in SERVERS env var
 
-  servers: [ 'localhost:3000', 'localhost:3001' ],
+  servers: [ 'localhost:3000' ],
 
   // ... And which server we are. Can also be set
   // via SERVER env var  
