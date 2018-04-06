@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# Run any necessary database migration tasks that should happen while the
+# site is paused here.
+
+node app apostrophe-migrations:migrate --all-sites
+node app apostrophe-migrations:migrate --site=dashboard
+
+echo "Site migrated"
