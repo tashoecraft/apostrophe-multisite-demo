@@ -8,6 +8,8 @@ sites/public/apos-minified
 sites/public/modules
 sites/public/css/*.css
 sites/public/css/*.map
+sites/public/css/master-*.less
+sites/public/js/_site-compiled.js
 dashboard/data
 dashboard/temp/uploadfs
 dashboard/public/uploads
@@ -15,12 +17,8 @@ dashboard/public/apos-minified
 dashboard/public/modules
 dashboard/public/css/*.css
 dashboard/public/css/*.map
+dashboard/public/css/master-*.less
+dashboard/public/js/_site-compiled.js
 temp/uploadfs
 node_modules
-# We don't commit CSS, only LESS
-public/css/*.css
-public/css/*.map
-# Don't commit masters generated on the fly at startup, these import all the rest
-public/css/master-*.less
 .jshintrc
-public/js/_site-compiled.js

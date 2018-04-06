@@ -16,14 +16,14 @@ ln -s ../../data $HERE/data
 # in a separate place so we don't have to have two express.static calls
 
 mkdir -p ../../sites/uploads
-ln -s ../../../sites/uploads $HERE/sites/public/uploads
+ln -s ../../sites/uploads $HERE/sites/public/uploads
 mkdir -p ../../sites/data
-ln -s ../../../sites/data $HERE/sites/data
+ln -s ../../sites/data $HERE/sites/data
 
 mkdir -p ../../dashboard/uploads
-ln -s ../../../dashboard/uploads $HERE/dashboard/public/uploads
+ln -s ../../dashboard/uploads $HERE/dashboard/public/uploads
 mkdir -p ../../dashboard/data
-ln -s ../../../dashboard/data $HERE/dashboard/data
+ln -s ../../dashboard/data $HERE/dashboard/data
 
 # Install any dependencies that can't just be rsynced over with
 # the deployment. Example: node apps have npm modules in a
