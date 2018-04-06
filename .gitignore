@@ -1,12 +1,22 @@
 locales
 npm-debug.log
 data
-public/uploads
-public/apos-minified
+sites/data
+sites/temp/uploadfs
+sites/public/uploads
+sites/public/apos-minified
+sites/public/modules
+sites/public/css/*.css
+sites/public/css/*.map
+dashboard/data
+dashboard/temp/uploadfs
+dashboard/public/uploads
+dashboard/public/apos-minified
+dashboard/public/modules
+dashboard/public/css/*.css
+dashboard/public/css/*.map
 temp/uploadfs
 node_modules
-# This folder is created on the fly and contains symlinks updated at startup (we'll come up with a Windows solution that actually copies things)
-public/modules
 # We don't commit CSS, only LESS
 public/css/*.css
 public/css/*.map

@@ -4,9 +4,14 @@
 # sqlite databases or static web content you may need
 data
 temp
-public/uploads
-public/modules
-public/apos-minified
+sites/temp
+dashboard/temp
+sites/public/uploads
+sites/public/modules
+sites/public/apos-minified
+dashboard/public/uploads
+dashboard/public/modules
+dashboard/public/apos-minified
 .git
 .gitignore
 # We don't deploy these anymore, instead we always 'npm install' to ensure
