@@ -1,0 +1,42 @@
+#!/bin/bash
+
+TARGET="$1"
+if [ -z "$TARGET" ]; then
+  echo "Usage: ./scripts/sync-up production"
+  echo "(or as appropriate)"
+  echo
+  echo "THIS WILL CLOBBER EVERYTHING ON THE"
+  echo "TARGET SITE. MAKE SURE THAT IS WHAT"
+  echo "YOU WANT!"
+  exit 1
+fi
+
+read -p "HOLY SMOKES BATMAN! THIS WILL CRUSH EVERY SINGLE SITE ON $TARGET! Are you REALLY SURE? " -n 1 -r
+echo
+if [[ ! $REPLY =~ ^[Yy]$ ]]
+then
+    exit 1
+fi
+
+source deployment/settings || exit 1
+source "deployment/settings.$TARGET" || exit 1
+
+echo "Syncing up MongoDB databases for each site"
+for dbName in `mongo --quiet --eval "db.getMongo().getDBNames().filter(function(name) { return name.startsWith('$PREFIX'); }).join('\n');"`
+do
+  #Enter the SSH username/url for the remote server.
+  remoteSSH=nodeapps@$SERVER
+
+  echo $dbName
+  mongodump -d $dbName -o /tmp/mongodump.$dbName &&
+  rsync -av  /tmp/mongodump.$dbName/ $remoteSSH:/tmp/mongodump.$dbName &&
+  rm -rf /tmp/mongodump.$dbName &&
+  echo ssh $remoteSSH mongorestore -d $dbName --drop /tmp/mongodump.$dbName/$dbName
+  ssh $remoteSSH mongorestore -d $dbName --drop /tmp/mongodump.$dbName/$dbName
+done
+echo "Syncing Files for All Sites" &&
+ssh $remoteSSH mkdir -p $DIR/sites/uploads/ &&
+ssh $remoteSSH mkdir -p $DIR/dashboard/uploads/ &&
+rsync -av --delete ./sites/public/uploads/ $remoteSSH:$DIR/sites/uploads/   &&
+rsync -av --delete ./dashboard/public/uploads/ $remoteSSH:$DIR/dashboard/uploads/   &&
+echo "Synced up to $TARGET."

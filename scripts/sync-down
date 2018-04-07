@@ -1,0 +1,44 @@
+#!/bin/sh
+
+TARGET="$1"
+if [ -z "$TARGET" ]; then
+  echo "Usage: ./scripts/sync-down production"
+  echo "(or as appropriate)"
+  exit 1
+fi
+
+source deployment/settings || exit 1
+source "deployment/settings.$TARGET" || exit 1
+
+#Enter the Mongo DB name (should be same locally and remotely).
+dbName=$PROJECT
+
+#Enter the Project name (should be what you called it for stagecoach).
+projectName=$PROJECT
+
+#Enter the SSH username/url for the remote server.
+remoteSSH=$USER@$SERVER
+
+echo "Syncing MongoDB database for dashboard first"
+ssh $remoteSSH mongodump -d "$PREFIX"dashboard -o /tmp/mongodump."$PREFIX"dashboard &&
+rsync -av $remoteSSH:/tmp/mongodump."$PREFIX"dashboard/ /tmp/mongodump."$PREFIX"dashboard  &&
+ssh $remoteSSH rm -rf /tmp/mongodump."$PREFIX"dashboard &&
+mongorestore --drop -d "$PREFIX"dashboard /tmp/mongodump."$PREFIX"dashboard/"$PREFIX"dashboard &&
+
+echo "Syncing individual site databases"
+for dbName in `mongo --quiet --eval "db.getMongo().getDBNames().filter(function(name) { return name.startsWith('$PREFIX'); }).join('\n');"`
+do
+  echo $dbName
+  ssh $remoteSSH mongodump -d $dbName -o /tmp/mongodump.$dbName &&
+  rsync -av $remoteSSH:/tmp/mongodump.$dbName/ /tmp/mongodump.$dbName  &&
+  ssh $remoteSSH rm -rf /tmp/mongodump.$dbName &&
+  mongorestore --drop -d $dbName /tmp/mongodump.$dbName/$dbName
+done
+
+echo "Syncing Files for All Sites" &&
+ssh $remoteSSH mkdir -p $DIR/sites/uploads/ &&
+ssh $remoteSSH mkdir -p $DIR/dashboard/uploads/ &&
+rsync -av --delete $remoteSSH:$DIR/sites/uploads/ ./sites/public/uploads  &&
+rsync -av --delete $remoteSSH:$DIR/dashboard/uploads/ ./dashboard/public/uploads  &&
+echo "Synced down from $TARGET"
+
