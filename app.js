@@ -14,16 +14,6 @@ const multi = require('apostrophe-multisite')({
   // a little extra spinup time on the next request
   timeout: 60 * 60,
 
-  // We need to know what server/port combos are listening. This will
-  // match your setup in mechanic/nginx or other load balancer. Can
-  // also be space-separated in SERVERS env var
-
-  servers: [ 'localhost:3000' ],
-
-  // ... And which server we are. Can also be set
-  // via SERVER env var  
-  server: 'localhost:3000',
-
   shortNamePrefix: process.env.SHORTNAME_PREFIX || 'multisite-',
 
   // MongoDB URL for database connection. If you have multiple physical
