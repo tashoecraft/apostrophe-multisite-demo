@@ -16,15 +16,14 @@
     "apostrophe",
     "cms"
   ],
-  "author": "P'unk Avenue LLC",
+  "author": "Apostrophe Technologies",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/apostrophecms/apostrophe-multisite/issues"
   },
   "homepage": "https://github.com/apostrophecms/apostrophe-multisite#readme",
   "dependencies": {
-    "apostrophe": "^2.49.0",
-    "apostrophe-multisite": "^2.0.1",
-    "mongodb": "^2.0.0"
+    "apostrophe": "^2.109.0",
+    "apostrophe-multisite": "^2.7.0"
   }
 }
