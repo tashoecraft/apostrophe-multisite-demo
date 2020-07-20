@@ -27,6 +27,7 @@ const multi = require('apostrophe-multisite')({
   // Session secret. Please use a unique string.
   sessionSecret: 'thisismadeup',
 
+
   // Apostrophe configuration for your hosted sites.
   // Just one config for all of them; per-site config could be
   // user editable settings in apostrophe-global.
@@ -46,7 +47,11 @@ const multi = require('apostrophe-multisite')({
       'apostrophe-pages': {
         choices: [
           {
-            label: 'Home',
+            label: 'Test',
+            name: 'testing'
+          },
+          {
+            label: 'Homish',
             name: 'home'
           },
           {

@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+
+{% block main %}
+  <div class="main-content">
+    <h1>An Individual Site
+      {% if not data.user %}
+        <a class="login-link" href="/login">Login</a>
+      {% endif %}
+    </h1>
+    <p>Log in to edit this site.</p>
+  </div>
+{% endblock %}
