@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/apostrophecms/apostrophe-multisite#readme",
   "dependencies": {
-    "apostrophe": "^2.109.0",
+    "apostrophe": "^3.4.0",
     "apostrophe-multisite": "^2.7.0"
   }
 }
